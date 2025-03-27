@@ -37,7 +37,7 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/runtime
         sudo ./eng/common/native/install-dependencies.sh
-        ./build.sh -rc release -s clr+libs
+        ./build.sh -rc release -s clr+libs /p:NativeOptimizationDataSupported=false
 
     - name: .NET Cryptography Tests
       env:
