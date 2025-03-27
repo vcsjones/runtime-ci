@@ -28,4 +28,11 @@ jobs:
         cd $GITHUB_WORKSPACE/openssl
         ./Configure -shared --prefix=/opt/openssl --openssldir=/opt/openssl
         make -j 4
-        sudo make install
+        sudo make install_sw
+
+
+    - name: Build .NET
+      run: |
+        cd $GITHUB_WORKSPACE/runtime
+        ./eng/common/native/install-dependencies.sh
+        ./build.sh -rc release -s clr+libs
