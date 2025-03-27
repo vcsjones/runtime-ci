@@ -26,5 +26,5 @@ jobs:
     - name: Build OpenSSL
       run: |
         cd $GITHUB_WORKSPACE/openssl
-        ./Configure -shared --prefix /opt/openssl --openssldir /opt/openssl
+        ./Configure -shared --prefix=/opt/openssl --openssldir=/opt/openssl
         make -j 2
