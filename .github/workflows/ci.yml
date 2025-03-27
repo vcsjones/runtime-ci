@@ -39,14 +39,14 @@ jobs:
       with:
         repository: dotnet/runtime
         path: runtime
-        ref: ${{ inputs.runtime_ref }}
+        ref: ${{ inputs.runtime_ref || 'main' }}
 
     - name: Checkout OpenSSL
       uses: actions/checkout@v4
       with:
         repository: openssl/openssl
         path: openssl
-        ref: ${{ inputs.openssl_ref }}
+        ref: ${{ inputs.openssl_ref || 'openssl-3.5' }}
 
     - name: Build OpenSSL
       run: |
