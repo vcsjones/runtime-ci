@@ -27,4 +27,5 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/openssl
         ./Configure -shared --prefix=/opt/openssl --openssldir=/opt/openssl
-        make -j 2
+        make -j 4
+        sudo make install
