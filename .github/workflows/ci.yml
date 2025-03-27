@@ -2,6 +2,9 @@ name: .NET Runtime OpenSSL 3.5 CI
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   run:
@@ -19,3 +22,9 @@ jobs:
         repository: openssl/openssl
         path: openssl
         ref: openssl-3.5
+
+    - name: Build OpenSSL
+      run: |
+        cd $GITHUB_WORKSPACE/openssl
+        ./Configure -shared --prefix /opt/openssl --openssldir /opt/openssl
+        make -j 2
