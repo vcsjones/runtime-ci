@@ -1,0 +1,19 @@
+name: .NET Runtime OpenSSL 3.5 CI
+
+on:
+  schedule:
+  - cron: "30 00 * * *"
+  workflow_dispatch:
+
+- name: Checkout .NET Runtime
+  uses: actions/checkout@v4
+  with:
+    repository: dotnet/runtime
+    path: runtime
+
+- name: Checkout OpenSSL
+  uses: actions/checkout@v4
+  with:
+    repository: openssl/openssl
+    path: openssl
+    ref: openssl-3.5
