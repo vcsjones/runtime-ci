@@ -54,7 +54,18 @@ jobs:
         OPENSSL_ROOT_DIR: /opt/openssl
       run: |
         cd $GITHUB_WORKSPACE/runtime
-        { ./dotnet.sh test src/libraries/System.Security.Cryptography/tests; ./dotnet.sh test src/libraries/Microsoft.Bcl.Cryptography/tests }
+        ./dotnet.sh test src/libraries/System.Security.Cryptography/tests
+        SSC_RESULT=$?
+        ./dotnet.sh test src/libraries/Microsoft.Bcl.Cryptography/tests
+        MBC_RESULT=$?
+
+        echo "SSC_RESULT: $SSC_RESULT; MBC_RESULT: $MBC_RESULT"
+
+        if [ $SSC_RESULT -ne 0 ] || [ $MBC_RESULT -ne 0 ]; then
+          exit 1
+        else
+          exit 0
+        fi
 
     - name: Upload Test Results
       if: ${{ success() || failure() }}
