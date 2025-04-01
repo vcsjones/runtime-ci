@@ -94,7 +94,7 @@ jobs:
         retention-days: 7
 
     - name: Open Failure Issue
-      if: ${{ failure() }}
+      if: ${{ failure() && (!inputs.runtime_ref || inputs.runtime_ref == 'main') }}
       uses: actions/github-script@v7
       with:
         script: |
