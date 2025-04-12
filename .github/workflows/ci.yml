@@ -2,7 +2,7 @@ name: .NET Runtime OpenSSL 3.5 CI
 
 on:
   schedule:
-    - cron: '0 13 * * *'
+    - cron: '0 13 * * 1-5'
   workflow_dispatch:
     inputs:
       openssl_ref:
