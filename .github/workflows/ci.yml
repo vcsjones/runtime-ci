@@ -43,16 +43,31 @@ jobs:
 
     - name: Checkout OpenSSL
       uses: actions/checkout@v4
+      id: checkout-openssl
       with:
         repository: openssl/openssl
         path: openssl
         ref: ${{ inputs.openssl_ref || 'openssl-3.5' }}
 
+    - name: OpenSSL Build Cache
+      id: openssl-build-cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          ${{ github.workspace }}/openssl
+          !${{ github.workspace }}/openssl/.git
+        key: ${{ runner.os }}-${{ steps.checkout-openssl.outputs.commit }}-openssl
+
     - name: Build OpenSSL
+      if: steps.openssl-build-cache.outputs.cache-hit != 'true'
       run: |
         cd $GITHUB_WORKSPACE/openssl
         ./Configure -shared --prefix=/opt/openssl --openssldir=/opt/openssl
         make -j 4
+
+    - name: Install OpenSSL
+      run: |
+        cd $GITHUB_WORKSPACE/openssl
         sudo make install_sw
 
     - name: Build .NET
