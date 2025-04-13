@@ -56,7 +56,7 @@ jobs:
         path: |
           ${{ github.workspace }}/openssl
           !${{ github.workspace }}/openssl/.git
-        key: ${{ runner.os }}-${{ steps.checkout-openssl.outputs.commit }}-openssl
+        key: ${{ runner.os }}-${{ runner.arch }}-${{ steps.checkout-openssl.outputs.commit }}-openssl
 
     - name: Build OpenSSL
       if: steps.openssl-build-cache.outputs.cache-hit != 'true'
