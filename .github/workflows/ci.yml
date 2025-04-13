@@ -76,6 +76,7 @@ jobs:
         OPENSSL_ROOT_DIR: /opt/openssl
       run: |
         cd $GITHUB_WORKSPACE/runtime
+        sudo apt install -y ninja-build
         sudo ./eng/common/native/install-dependencies.sh
         ./build.sh -rc release -s clr+libs /p:NativeOptimizationDataSupported=false
 
