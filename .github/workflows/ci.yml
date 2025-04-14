@@ -71,7 +71,7 @@ jobs:
     - name: Install OpenSSL
       run: |
         cd $GITHUB_WORKSPACE/openssl
-        sudo make install_sw
+        make install_sw
 
     - name: Build .NET
       env:
@@ -79,8 +79,6 @@ jobs:
         OPENSSL_ROOT_DIR: /opt/openssl
       run: |
         cd $GITHUB_WORKSPACE/runtime
-        sudo apt install -y ninja-build
-        sudo ./eng/common/native/install-dependencies.sh
         ./build.sh -rc release -s clr+libs /p:NativeOptimizationDataSupported=false
 
     - name: .NET Cryptography Tests
