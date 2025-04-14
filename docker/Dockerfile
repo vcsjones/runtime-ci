@@ -3,9 +3,9 @@ FROM ubuntu:24.04
 RUN DEBIAN_FRONTEND=noninteractive\
     apt update && \
     apt install -y --no-install-recommends \
+        curl \
         python3 \
         python-is-python3 \
-        wget \
         ca-certificates \
         git \
         build-essential \
