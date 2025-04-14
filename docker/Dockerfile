@@ -3,6 +3,7 @@ FROM ubuntu:24.04
 RUN DEBIAN_FRONTEND=noninteractive\
     apt update && \
     apt install -y --no-install-recommends \
+        ca-certificates \
         git \
         build-essential \
         ninja-build \
