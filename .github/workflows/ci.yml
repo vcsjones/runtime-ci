@@ -75,7 +75,6 @@ jobs:
 
     - name: Build .NET
       env:
-        LD_LIBRARY_PATH: /opt/openssl/lib
         OPENSSL_ROOT_DIR: /opt/openssl
       run: |
         cd $GITHUB_WORKSPACE/runtime
