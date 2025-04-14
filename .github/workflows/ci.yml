@@ -29,10 +29,13 @@ permissions:
   actions: write
   contents: read
   issues: write
+  packages: read
 
 jobs:
   run:
     runs-on: ubuntu-24.04-arm
+    container:
+      image: ghcr.io/vcsjones/runtime-ci:main
     steps:
     - name: Checkout .NET Runtime
       uses: actions/checkout@v4
