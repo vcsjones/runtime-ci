@@ -45,8 +45,8 @@ jobs:
         id: build
         uses: docker/build-push-action@471d1dc4e07e5cdedd4c2171150001c434f0b7a4
         with:
-          context: .
-          file: ./Dockerfile
+          context: ${{ github.workspace }}/docker
+          file: ${{ github.workspace }}/docker/Dockerfile
           push: true
           tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
