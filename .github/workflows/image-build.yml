@@ -61,9 +61,10 @@ jobs:
           subject-digest: ${{ steps.build.outputs.digest }}
           push-to-registry: true
 
-      - uses: actions/delete-package-versions@v5
+      - name: Cleanup Old Containers
+        uses: actions/delete-package-versions@v5
         with:
-          package-name: ${{ env.IMAGE_NAME }}
+          package-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           package-type: container
           min-versions-to-keep: 1
           delete-only-untagged-versions: false
