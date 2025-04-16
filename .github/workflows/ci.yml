@@ -104,8 +104,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         path: |
-          ${{ github.workspace }}/runtime/artifacts/bin/System.Security.Cryptography.Tests/Debug/net10.0-unix/TestResults/
-          ${{ github.workspace }}/runtime/artifacts/bin/Microsoft.Bcl.Cryptography.Tests/Debug/net10.0/TestResults/
+          ${{ github.workspace }}/runtime/artifacts/bin/**/TestResults/
         if-no-files-found: warn
         retention-days: 7
 
