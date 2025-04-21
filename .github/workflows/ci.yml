@@ -94,7 +94,9 @@ jobs:
       env:
         LD_LIBRARY_PATH: /opt/openssl/lib
         OPENSSL_ROOT_DIR: /opt/openssl
+      shell: bash
       run: |
+        set +e
         cd $GITHUB_WORKSPACE/runtime
         ./dotnet.sh test src/libraries/System.Security.Cryptography/tests
         SSC_RESULT=$?
