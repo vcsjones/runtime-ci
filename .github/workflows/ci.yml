@@ -9,7 +9,7 @@ on:
         type: string
         description: openssl/openssl Branch
         required: true
-        default: 'openssl-3.5.0'
+        default: 'openssl-3.5'
       runtime_ref:
         type: string
         description: dotnet/runtime Branch
@@ -45,7 +45,7 @@ jobs:
       with:
         repository: openssl/openssl
         path: openssl
-        ref: ${{ inputs.openssl_ref || 'openssl-3.5.0' }}
+        ref: ${{ inputs.openssl_ref || 'openssl-3.5' }}
 
     - name: OpenSSL Build Cache Restore
       id: openssl-build-cache
