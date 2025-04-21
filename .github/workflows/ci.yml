@@ -52,9 +52,9 @@ jobs:
         path: openssl
         ref: ${{ inputs.openssl_ref || 'openssl-3.5.0' }}
 
-    - name: OpenSSL Build Cache
+    - name: OpenSSL Build Cache Restore
       id: openssl-build-cache
-      uses: actions/cache@v4
+      uses: actions/cache/restore@v4
       with:
         path: |
           ${{ github.workspace }}/openssl
@@ -63,10 +63,20 @@ jobs:
 
     - name: Build OpenSSL
       if: steps.openssl-build-cache.outputs.cache-hit != 'true'
+      id: build-openssl
       run: |
         cd $GITHUB_WORKSPACE/openssl
         ./Configure -shared --prefix=/opt/openssl --openssldir=/opt/openssl
         make -j 4
+
+    - name: OpenSSL Build Cache Save
+      uses: actions/cache/save@v4
+      if: steps.build-openssl.outcome == 'success'
+      with:
+        path: |
+          ${{ github.workspace }}/openssl
+          !${{ github.workspace }}/openssl/.git
+        key: ${{ runner.os }}-${{ runner.arch }}-${{ steps.checkout-openssl.outputs.commit }}-openssl
 
     - name: Install OpenSSL
       run: |
