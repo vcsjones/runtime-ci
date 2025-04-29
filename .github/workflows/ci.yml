@@ -16,10 +16,6 @@ on:
         required: true
         default: 'main'
 
-concurrency:
-  group: ${{ github.workflow }}
-  cancel-in-progress: true
-
 permissions:
   actions: write
   contents: read
