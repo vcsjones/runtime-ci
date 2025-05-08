@@ -1,4 +1,4 @@
-name: .NET Runtime OpenSSL 3.5 CI
+name: .NET Runtime OpenSSL CI
 
 on:
   schedule:
@@ -9,7 +9,7 @@ on:
         type: string
         description: openssl/openssl Branch
         required: true
-        default: 'openssl-3.5'
+        default: 'master'
       runtime_ref:
         type: string
         description: dotnet/runtime Branch
@@ -41,7 +41,7 @@ jobs:
       with:
         repository: openssl/openssl
         path: openssl
-        ref: ${{ inputs.openssl_ref || 'openssl-3.5' }}
+        ref: ${{ inputs.openssl_ref || 'master' }}
 
     - name: OpenSSL Build Cache Restore
       id: openssl-build-cache

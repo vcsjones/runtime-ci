@@ -1,7 +1,7 @@
 .NET Runtime CI
 =======
 
-This repository builds the [dotnet/runtime](https://github.com/dotnet/runtime) and runs select test projects against OpenSSL 3.5.
+This repository builds the [dotnet/runtime](https://github.com/dotnet/runtime) and runs select test projects against OpenSSL dev.
 
 The current test projects are:
 * System.Security.Cryptography
