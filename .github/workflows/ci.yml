@@ -18,7 +18,7 @@ on:
       portable_build:
         type: boolean
         default: true
-        description: Cryptography portable build
+        description: portable build
 
 permissions:
   actions: write
