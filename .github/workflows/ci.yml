@@ -15,6 +15,10 @@ on:
         description: dotnet/runtime Branch
         required: true
         default: 'main'
+      portable_build:
+        type: boolean
+        default: true
+        description: Cryptography portable build
 
 permissions:
   actions: write
@@ -80,6 +84,9 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/runtime
         ./build.sh -rc release -s clr+libs /p:NativeOptimizationDataSupported=false
+        if [ "${{ inputs.portable_build }}" = "false" ]; then
+          ./build.sh -rc release -s libs.native --portablebuild false
+        fi
 
     - name: .NET Cryptography Tests
       env:
