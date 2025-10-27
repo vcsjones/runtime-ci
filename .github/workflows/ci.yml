@@ -125,7 +125,7 @@ jobs:
         fi
 
     - name: Run Networking Tests
-      if: inputs.run_networking == 'true'
+      if: inputs.run_networking
       env:
         LD_LIBRARY_PATH: /opt/openssl/lib
         OPENSSL_ROOT_DIR: /opt/openssl
