@@ -19,6 +19,10 @@ on:
         type: boolean
         default: true
         description: portable build
+      run_networking:
+        type: boolean
+        default: false
+        description: run networking
 
 permissions:
   actions: write
@@ -115,6 +119,28 @@ jobs:
         echo "SSC_RESULT: $SSC_RESULT; MBC_RESULT: $MBC_RESULT"
 
         if [ $SSC_RESULT -ne 0 ] || [ $MBC_RESULT -ne 0 ]; then
+          exit 1
+        else
+          exit 0
+        fi
+
+    - name: Run Networking Tests
+      if: inputs.run_networking == 'true'
+      env:
+        LD_LIBRARY_PATH: /opt/openssl/lib
+        OPENSSL_ROOT_DIR: /opt/openssl
+      shell: bash
+      run: |
+        set +e
+        cd $GITHUB_WORKSPACE/runtime
+        ./dotnet.sh test src/libraries/System.Net.Security/tests/UnitTests/
+        SNSU_RESULT=$?
+        ./dotnet.sh test src/libraries/System.Net.Security/tests/FunctionalTests/
+        SNSF_RESULT=$?
+
+        echo "SNSU_RESULT: $SNSU_RESULT; SNSF_RESULT: $SNSF_RESULT"
+
+        if [ $SNSU_RESULT -ne 0 ] || [ $SNSF_RESULT -ne 0 ]; then
           exit 1
         else
           exit 0
