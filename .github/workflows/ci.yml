@@ -34,6 +34,7 @@ jobs:
     steps:
     - name: Checkout .NET Runtime
       uses: actions/checkout@v4
+      id: checkout-dotnet
       with:
         repository: dotnet/runtime
         path: runtime
@@ -46,6 +47,16 @@ jobs:
         repository: openssl/openssl
         path: openssl
         ref: ${{ inputs.openssl_ref || 'master' }}
+
+    - name: Log Details
+      run: |
+        echo openssl/openssl ref: ${{ steps.checkout-openssl.outputs.commit }}
+        echo dotnet/runtime ref: ${{ steps.checkout-dotnet.outputs.commit }}
+        if [ "${{ inputs.portable_build }}" = "false" ]; then
+          echo "nonportable build"
+        else
+          echo "portable build"
+        fi
 
     - name: OpenSSL Build Cache Restore
       id: openssl-build-cache
