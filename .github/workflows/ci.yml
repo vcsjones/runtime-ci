@@ -54,6 +54,7 @@ jobs:
 
     - name: Log Details
       run: |
+        echo "::group::Run Details"
         echo openssl/openssl ref: ${{ steps.checkout-openssl.outputs.commit }}
         echo dotnet/runtime ref: ${{ steps.checkout-dotnet.outputs.commit }}
         if [ "${{ inputs.portable_build }}" = "false" ]; then
@@ -61,6 +62,8 @@ jobs:
         else
           echo "portable build"
         fi
+
+        echo "::endgroup::"
 
     - name: OpenSSL Build Cache Restore
       id: openssl-build-cache
