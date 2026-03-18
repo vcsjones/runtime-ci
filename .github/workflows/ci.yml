@@ -54,16 +54,13 @@ jobs:
 
     - name: Log Details
       run: |
-        echo "::group::Run Details"
-        echo openssl/openssl ref: ${{ steps.checkout-openssl.outputs.commit }}
-        echo dotnet/runtime ref: ${{ steps.checkout-dotnet.outputs.commit }}
+        echo openssl/openssl ref: ${{ steps.checkout-openssl.outputs.commit }} >> $GITHUB_STEP_SUMMARY
+        echo dotnet/runtime ref: ${{ steps.checkout-dotnet.outputs.commit }} >> $GITHUB_STEP_SUMMARY
         if [ "${{ inputs.portable_build }}" = "false" ]; then
-          echo "nonportable build"
+          echo "nonportable build" >> $GITHUB_STEP_SUMMARY
         else
-          echo "portable build"
+          echo "portable build" >> $GITHUB_STEP_SUMMARY
         fi
-
-        echo "::endgroup::"
 
     - name: OpenSSL Build Cache Restore
       id: openssl-build-cache
