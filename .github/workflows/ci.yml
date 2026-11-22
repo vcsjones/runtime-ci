@@ -32,12 +32,12 @@ permissions:
 
 jobs:
   run:
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-26.04-arm
     container:
       image: ghcr.io/vcsjones/runtime-ci:main
     steps:
     - name: Checkout .NET Runtime
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       id: checkout-dotnet
       with:
         repository: dotnet/runtime
@@ -45,7 +45,7 @@ jobs:
         ref: ${{ inputs.runtime_ref || 'main' }}
 
     - name: Checkout OpenSSL
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       id: checkout-openssl
       with:
         repository: openssl/openssl
@@ -64,7 +64,7 @@ jobs:
 
     - name: OpenSSL Build Cache Restore
       id: openssl-build-cache
-      uses: actions/cache/restore@v5
+      uses: actions/cache/restore@v6
       with:
         path: |
           ${{ github.workspace }}/openssl
@@ -80,7 +80,7 @@ jobs:
         make -j 4
 
     - name: OpenSSL Build Cache Save
-      uses: actions/cache/save@v5
+      uses: actions/cache/save@v6
       if: steps.build-openssl.outcome == 'success'
       with:
         path: |
@@ -107,7 +107,6 @@ jobs:
       env:
         LD_LIBRARY_PATH: /opt/openssl/lib
         OPENSSL_ROOT_DIR: /opt/openssl
-        DOTNET_OPENSSL_VERSION_OVERRIDE: 4
       shell: bash
       run: |
         set +e
@@ -130,7 +129,6 @@ jobs:
       env:
         LD_LIBRARY_PATH: /opt/openssl/lib
         OPENSSL_ROOT_DIR: /opt/openssl
-        DOTNET_OPENSSL_VERSION_OVERRIDE: 4
       shell: bash
       run: |
         set +e
@@ -159,7 +157,7 @@ jobs:
 
     - name: Open Failure Issue
       if: ${{ failure() && github.event_name == 'schedule' }}
-      uses: actions/github-script@v8
+      uses: actions/github-script@v9
       with:
         script: |
           await github.rest.issues.create({
